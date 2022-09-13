@@ -22,7 +22,7 @@ if(isset($_POST['add'])){
 		}else{
 			mysqli_query($con,"INSERT INTO `product`( `category_id`, `product_name`, `mrp`, `price`, `qentity`, `image`, `short_desc`, `descrption`, `meta_title`, `meta_desc`, `meta_keyword`, `stauts`) VALUES('$categories_id','$name','$mrp','$price','$qty','$image','$short_desc','$description','$meta_title','$meta_desc','$meta_keyword',1)");
 		}
-		header("Location:category.php");
+		header("Location:product.php");
 		die();
 	}
 
