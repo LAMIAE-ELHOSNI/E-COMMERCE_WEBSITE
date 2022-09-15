@@ -1,6 +1,9 @@
 <?php require "../admin/connectDB.php";
 require "../admin/function.php";
+require "add_to_cart.php";
 $category=mysqli_query($con,"select * from category where stauts=1");
+$obj=new add_to_cart();
+$totalProduct=$obj->totalProduct();
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -93,11 +96,17 @@ $category=mysqli_query($con,"select * from category where stauts=1");
                                         <a href="#"><i class="icon-magnifier icons"></i></a>
                                     </div>
                                     <div class="header__account">
-                                        <a href="#"><i class="icon-user icons"></i></a>
+                                        <!-- <a href="#"><i class="icon-user icons"></i></a> -->
+                                        <?php if(isset($_SESSION['USER_LOGIN'])){
+											echo '<a href="logout.php">Logout</a>';
+										}else{
+											echo '<a href="login.php">Login</a>';
+										}
+										?>
                                     </div>
                                     <div class="htc__shopping__cart">
                                         <a class="cart__menu" href="#"><i class="icon-handbag icons"></i></a>
-                                        <a href="#"><span class="htc__qua">2</span></a>
+                                        <a href="cart.php"><span class="htc__qua"><?php echo $totalProduct?></span></a>
                                     </div>
                                 </div>
                             </div>

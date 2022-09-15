@@ -66,17 +66,27 @@ $get_product=$data
                                     <div class="sin__desc">
                                         <p><span>Availability:</span> In Stock</p>
                                     </div>
+                                    <div >
+                                       <span>Qentity</span>
+                                        <select id="qty" style="width: 150px;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="5">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
                                     <div class="sin__desc align--left">
                                         <p><span>Categories:</span></p>
                                         <ul class="pro__cat__list">
-                                            <li><a href="#"><?php echo $get_product['0']['category']?>,</a></li>
+                                            <li><a href="#"><?php echo $get_product['0']['category']?></a></li>
                                         </ul>
                                     </div>
                                     
                                     </div>
 									
                                 </div>
-								<a class="fr__btn" href="#">Add to cart</a>
+								<a class="fr__btn" href="javascript:void(0)" onclick="manage_cart('<?php echo $get_product['0']['id']?>','add')" >Add to cart</a>
                             </div>
                         </div>
                     </div>
@@ -116,3 +126,26 @@ $get_product=$data
         <!-- End Product Description -->
         
 <? include "footer.php";?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script>
+    function manage_cart(pid,type){
+	if(type=='update'){
+		var qty=jQuery("#"+pid+"qty").val();
+	}else{
+		var qty=jQuery("#qty").val();
+	}
+	jQuery.ajax({
+		url:'mange_cart.php',
+		type:'post',
+		data:'pid='+pid+'&qty='+qty+'&type='+type,
+		success:function(result){
+			if(type=='update' || type=='remove'){
+				window.location.href='cart.php';
+			}
+			jQuery('.htc__qua').html(result);
+		}	
+	});	
+}
+
+</script>
