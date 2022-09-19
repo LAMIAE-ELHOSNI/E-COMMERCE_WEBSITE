@@ -97,17 +97,38 @@ $totalProduct=$obj->totalProduct();
                                     </div>
                                     <div class="header__account">
                                         <!-- <a href="#"><i class="icon-user icons"></i></a> -->
-                                        <?php if(isset($_SESSION['USER_LOGIN'])){
-											echo '<a href="logout.php">Logout</a>';
-										}else{
-											echo '<a href="login.php">Login</a>';
-										}
-										?>
+                                        <?php
+                                        // if(isset($_SESSION['USER_LOGIN'])){
+											//echo '<a href="logout.php"><i class="icon-user icons"></i></a>';
+										//}else{
+											//echo '<a href="login.php">Login</a>';
+										//}
+										?> 
                                     </div>
+
                                     <div class="htc__shopping__cart">
                                         <a class="cart__menu" href="#"><i class="icon-handbag icons"></i></a>
                                         <a href="cart.php"><span class="htc__qua"><?php echo $totalProduct?></span></a>
                                     </div>
+                                    <nav class="main__menu__nav hidden-xs hidden-sm">
+                                    <ul class="main__menu">
+                                        <li class="drop">
+                                            <?php
+                                                if(isset($_SESSION['USER_LOGIN'])){
+											    echo '<a><i class="icon-user icons"></i></a>';?>
+                                                    <ul class="dropdown ">
+                                                        <li><a href="show_orders_user.php">MY Orders</a></li>
+                                                        <li></li>
+                                                        <li><a href="logout.php">Logout</a></li>
+                                                    </ul>
+										      <?php  }else{
+										    	echo '<a href="login.php">Login</a>';
+									            	}
+                                            ?>
+
+                                        </li>
+                                    </ul>
+                                </nav>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,12 @@
  
  <?php include "header.php"; 
  //prx($_SESSION['cart']);
+if($_SESSION['USER_LOGIN']){
+$id_user=$_SESSION['USER_ID'];
+$sql="SELECT DISTINCT  order_user.* ,order_deteail.*,product.* FROM order_user,order_deteail,product where order_user.id=order_deteail.order_user_id and product.id=order_deteail.product_id  and order_user.user_id='$id_user'";
+$res=mysqli_query($con,$sql);
+
+ }
  ?>
  <div class="body__overlay"></div>
         <!-- Start Offset Wrapper -->
@@ -104,65 +110,32 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th class="product-thumbnail">products</th>
-                                            <th class="product-name">name of products</th>
+                                            <!-- <th class="product-thumbnail">products Image</th> -->
+                                            <th class="product-name">product</th>
                                             <th class="product-price">Price</th>
                                             <th class="product-quantity">Quantity</th>
-                                            <th class="product-subtotal">Total</th>
-                                            <th class="product-remove">Remove</th>
+                                            <th class="product-subtotal">Total Price(price x qentity )</th>
+                                            <th>Order Stauts</th>
+                                            <th>Order Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                            if($_SESSION['cart']){
-                                             foreach($_SESSION['cart'] as $key=>$val){
-                                                 $requet="select product.* ,category.category from product,category where product.category_id=category.id and product.id=$key";
-                                                 $product=mysqli_query($con,$requet);
-                                                // if (mysqli_num_rows($product) >0) {
-                                                    $data=array();
-                                                    while($row=mysqli_fetch_assoc($product)){   
-                                                        $data[]=$row;
-                                                    }
-                                                        $product=$data;
-                                                        //$productArr=get_product($con,'','',$key);
-                                                        $name=$product[0]['product_name'];
-                                                        $mrp=$product[0]['mrp'];
-                                                        $price=$product[0]['price'];
-                                                        $image=$product[0]['image'];
-                                                        $qty=$val['qty'];
-                                        ?>
+                                       
+                                        <?php while($row=mysqli_fetch_assoc($res)){?>
                                             <tr>
-                                                <td class="product-thumbnail"><a href="#"> <img src="../media/product/<?php echo $image?>" alt="full-image"></a></td>
-                                                <td class="product-name"><a href="#"><?php echo $name;?></a>
-                                                    <ul  class="pro__prize">
-                                                        <li class="old__prize">$<?php echo $mrp;?></li>
-                                                        <li><?php echo $price;?></li>
-                                                    </ul>
-                                                </td>
-                                                <td class="product-price"><span class="amount"><?php echo $price;?></span></td>
-                                                <td class="product-quantity"><input type="number" id="<?php echo $key?>qty" value="<?php echo $qty;?>" />
-                                                <br/><a href="javascript:void(0)" onclick="manage_cart('<?php echo $key?>','update')">update</a>
-                                                </td>
-
-                                                <td class="product-subtotal"><?php echo $price*$qty; ?></td>
-                                                <td class="product-remove"><a href="javascript:void(0)" onclick="manage_cart('<?php echo $key?>','remove')"><i class="icon-trash icons"></i></a></td>
+                                                <td class="product-thumbnail"><a href="product-details.php?id=<?php echo $row['id']?>"> <img src="../media/product/<?php echo $row['image'] ?>" alt="full-image"></a>
+                                                <br><span> <a href="product-details.php?id=<?php echo $row['id']?>"><?php echo $row['product_name'];?></a></span></td>
+                                                <td class="product-price"><?php echo $row['price'];?></td>
+                                                <td><?php echo $row['qentity'];?></td>
+                                                <td><?php echo (int)$row['price']*(int)$row['qentity']; ?></td>
+                                                <td><?php echo $row['order_status']; ?></td>
+                                                <td><?php echo $row['added_on']; ?></td>
                                         </tr>
-                                    <?php } }//} ?>
+                                    <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="buttons-cart--inner">
-                                        <div class="buttons-cart">
-                                            <a href="index.php">Continue Shopping</a>
-                                        </div>
-                                        <div class="buttons-cart checkout--btn">
-                                            <a href="checkout.php">checkout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </form> 
                     </div>
                 </div>
@@ -173,26 +146,4 @@
         <!-- Start Footer Area -->
 
 <?php include "footer.php";?>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <!-- i copied this code to many file try later to optimize it  -->
-<script>
-    function manage_cart(pid,type){
-	if(type=='update'){
-		var qty=jQuery("#"+pid+"qty").val();
-	}else{
-		var qty=jQuery("#qty").val();
-	}
-	jQuery.ajax({
-		url:'mange_cart.php',
-		type:'post',
-		data:'pid='+pid+'&qty='+qty+'&type='+type,
-		success:function(result){
-			if(type=='update' || type=='remove'){
-				window.location.href=window.location.href;
-			}
-			jQuery('.htc__qua').html(result);
-		}	
-	});	
-}
-
-</script>

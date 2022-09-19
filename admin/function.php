@@ -17,7 +17,7 @@ function get_safe_value($con,$str){
 	}
 }
 function get_product($con,$limit='',$cat_id='',$product_id=''){
-	$sql="select product.*,category.category from product,category where product.status=1 ";
+	$sql="select product.*,category.category from product,category where product.stauts=1 ";
 	if($cat_id!=''){
 		$sql.=" and product.category_id=$cat_id ";
 	}

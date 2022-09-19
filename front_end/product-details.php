@@ -1,4 +1,4 @@
-<?php 
+<?php
 require('header.php');
 if(isset($_GET['id'])){
 	$product_id=$_GET['id'];
@@ -10,7 +10,7 @@ if(isset($_GET['id'])){
 }else{
     header("location:index.php");
 }
-$get_product=$data
+$get_product=$data;
 ?>
 
  <!-- Start Bradcaump area -->
@@ -127,7 +127,7 @@ $get_product=$data
         
 <? include "footer.php";?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
+<!-- i copied this code to many file try later to optimize it  -->
 <script>
     function manage_cart(pid,type){
 	if(type=='update'){
@@ -141,7 +141,7 @@ $get_product=$data
 		data:'pid='+pid+'&qty='+qty+'&type='+type,
 		success:function(result){
 			if(type=='update' || type=='remove'){
-				window.location.href='cart.php';
+				window.location.href=window.location.href;
 			}
 			jQuery('.htc__qua').html(result);
 		}	
