@@ -140,9 +140,10 @@ $res=mysqli_query($con,$sql);
                         </div>
                     </div>
                 </div>
-                <div class="htc__product__container">
+                <div class="product__wrap clearfix">
+                    <div class="container">
                     <div class="row">
-                        <div class="product__list clearfix mt--30">
+                        <div class="product__list clearfix mt--50">
                             <!-- Start Single Category -->
 							<?php while($row=mysqli_fetch_assoc($res)){?>
                             <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
@@ -155,11 +156,9 @@ $res=mysqli_query($con,$sql);
                                     </div>
                                     <div class="fr__hover__info">
                                        <ul class="product__action">  <!-- //wishlist and cart stuf -->
-                                            <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
+                                            <li><a href="javascript:void(0)" onclick="manage_wishlist('<?php echo $row['id']?>>','add')"><i class="icon-heart icons"></i></a></li>
 
-                                            <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-
-                                            <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
+                                            <li><a href="javascript:void(0)" onclick="manage_cart('<?php echo $row['id']?>>','add')"><i class="icon-handbag icons"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="fr__product__inner">
@@ -170,11 +169,12 @@ $res=mysqli_query($con,$sql);
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                           
                             <?php }?>
                             <!-- End Single Category -->
                         </div>
-                    </div>
+                    </div></div>
+
                 </div>
             </div>
         </section>
@@ -307,3 +307,40 @@ $res=mysqli_query($con,$sql);
         <!-- End Product Area -->
         <!-- Start Footer Area -->
 <?php include "footer.php";?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<!-- i copied this code to many file try later to optimize it  -->
+<script>
+    function manage_cart(pid,type){
+	if(type=='update'){
+		var qty=jQuery("#"+pid+"qty").val();
+	}else{
+		var qty=jQuery("#qty").val();
+	}
+	jQuery.ajax({
+		url:'mange_cart.php',
+		type:'post',
+		data:'pid='+pid+'&qty='+qty+'&type='+type,
+		success:function(result){
+			if(type=='update' || type=='remove'){
+				window.location.href=window.location.href;
+			}
+			jQuery('.htc__qua').html(result);
+		}	
+	});	
+}
+
+function manage_wishlist(pid,type){
+	var qty=jQuery("#qty").val();
+	jQuery.ajax({
+		url:'manage_wishlist.php',
+		type:'post',
+		data:'pid='+pid+'&type='+type,
+		success:function(result){
+			if(type=='update'){
+				window.location.href=window.location.href;
+			}
+			jQuery('.htc__qua').html(result);
+		}	
+	});	
+}
+</script>

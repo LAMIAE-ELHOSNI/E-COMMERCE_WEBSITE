@@ -4,6 +4,8 @@ require "add_to_cart.php";
 $category=mysqli_query($con,"select * from category where stauts=1");
 $obj=new add_to_cart();
 $totalProduct=$obj->totalProduct();
+
+
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -118,7 +120,7 @@ $totalProduct=$obj->totalProduct();
 											    echo '<a><i class="icon-user icons"></i></a>';?>
                                                     <ul class="dropdown ">
                                                         <li><a href="show_orders_user.php">MY Orders</a></li>
-                                                        <li></li>
+                                                        <li><a href="wishlist.php">MY WishList()</a></li>
                                                         <li><a href="logout.php">Logout</a></li>
                                                     </ul>
 										      <?php  }else{

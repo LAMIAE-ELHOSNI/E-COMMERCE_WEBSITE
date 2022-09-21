@@ -115,8 +115,8 @@ $res=mysqli_query($con,$sql);
                                             <th class="product-price">Price</th>
                                             <th class="product-quantity">Quantity</th>
                                             <th class="product-subtotal">Total Price(price x qentity )</th>
-                                            <th>Order Stauts</th>
                                             <th>Order Date</th>
+                                            <th>Order Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -128,8 +128,13 @@ $res=mysqli_query($con,$sql);
                                                 <td class="product-price"><?php echo $row['price'];?></td>
                                                 <td><?php echo $row['qentity'];?></td>
                                                 <td><?php echo (int)$row['price']*(int)$row['qentity']; ?></td>
-                                                <td><?php echo $row['order_status']; ?></td>
                                                 <td><?php echo $row['added_on']; ?></td>
+                                                <?php $order_status=(int)$row['order_status']; ?>
+                                                <?php $query_s="SELECT order_user.*,order_status.* FROM order_user,order_status where order_user.order_status=order_status.id and order_status='$order_status'";
+                                                ?><?php $res_s=mysqli_query($con,$query_s); ?>
+                                                <?php while($row=mysqli_fetch_assoc($res_s)){?>
+                                                <td><?php echo $row['name']; ?></td>
+                                                <?php }?>
                                         </tr>
                                     <?php } ?>
                                     </tbody>

@@ -2,10 +2,12 @@
 require ("connectDB.php");
 require ("function.php");
    if(isset($_SESSION['admin_login'])&&$_SESSION['admin_username']!=''){
-
    }else{      
-        header("Location:category.php");
-        die();
+      ?>
+         <script>
+            window.location.href="login.php";
+         </script>
+       <?php
    }
 
 ?>
@@ -40,7 +42,7 @@ require ("function.php");
                      <a href="product.php" >Products</a>
                   </li>
 				  <li class="menu-item-has-children dropdown">
-                     <a href="#" >Order Master</a>
+                     <a href="order_master.php" >Order Master</a>
                   </li>
 				  <li class="menu-item-has-children dropdown">
                      <a href="order_master.php" >User Master</a>

@@ -1,29 +1,9 @@
 <?php
 require('header.php');
-if(isset($_GET['type']) && $_GET['type']!=''){
-	$type=get_safe_value($con,$_GET['type']);
-
-	if($type=='stauts'){
-	 $operation=get_safe_value($con,$_GET['operation']);
-	 $id=get_safe_value($con,$_GET['id']);
-		if($operation=='active'){
-				$status='1';
-		 }else{
-				$status='0';
-			}
-			$update_status_sql="update product set stauts='$status' where id='$id'";
-			mysqli_query($con,$update_status_sql);
-		}
-
-	if($type=='delete'){
-		$id=get_safe_value($con,$_GET['id']);
-		$delete_sql="delete from product where id='$id'";
-		mysqli_query($con,$delete_sql);
-	}
-}
-$sql="select product.* ,category.category from product,category where product.category_id=category.id order by product.id desc";
-$res=mysqli_query($con,$sql);
+$query_s="SELECT order_user.*,order_status.name FROM order_user,order_status where order_user.order_status=order_status.id";
+$res_s=mysqli_query($con,$query_s);
 ?>
+
 <div class="content pb-0">
 	<div class="orders">
 	   <div class="row">
@@ -36,46 +16,36 @@ $res=mysqli_query($con,$sql);
 						 <thead>
 							<tr>
 							   <th class="serial">#</th>
-							   <th>ID</th>
-							   <th>Categories</th>
-							   <th>Name</th>
-							   <th>Image</th>
-							   <th>MRP</th>
-							   <th>Price</th>
-							   <th>Qentity</th>
-							   <th></th>
+							   <th>ID Order</th>
+							   <th>Client</th>
+							   <th>Adress</th>
+							   <th>Payment Method</th>
+							   <th>Payment Status</th>
+							   <th>Order Status</th>
+							   <th>Date Oeder</th>
 							</tr>
 						 </thead>
 						 <tbody>
 							<?php 
 							$i=1;
-							while($row=mysqli_fetch_assoc($res)){?>
+							while($row=mysqli_fetch_assoc($res_s)){?>
 							<tr>
 							   <td class="serial"><?php echo $i?></td>
-							   <td><?php echo $row['id']?></td>
-							   <td><?php echo $row['category_id']?></td>
-							   <td><?php echo $row['product_name']?></td>
-							   <td><img src="../media/product/<?php echo $row['image'];?>"/></td>
-							   <td><?php echo $row['mrp']?></td>
-							   <td><?php echo $row['price']?></td>
-							   <td><?php echo $row['qentity']?></td>
-							   <td>
-								<?php
-								if($row['stauts']==1){
-									echo "<span ><a class='badge badge-complete' href='?type=stauts&operation=deactive&id=".$row['id']."'>Active</a></span>&nbsp;";
-								}else{
-									echo "<span ><a class='badge badge-pending' href='?type=stauts&operation=active&id=".$row['id']."'>Deactive</a></span>&nbsp;";
-								}
-								echo "<span><a class='badge badge-edit btn-success'  href='add_edit_product.php?id=".$row['id']."'>Edit</a></span>&nbsp;";
-								
-								echo "<span ><a class='badge badge-delete btn-danger' href='?type=delete&id=".$row['id']."'>Delete</a></span>";
-								$i++;
-								?>
+							   <td> <a href="order_master_detail.php?id=<?php echo $row['id']?>"><?php echo $row['id']?></a></td>
+							   <td> <a href=""><?php echo $row['user_id']?></a> </td>
+							   <td>city : <?php echo $row['city']?> 
+								<br>code postal :  <?php echo $row['zip']?><br>adress :  <?php echo $row['adress']?><br>
 							   </td>
+							   <td><?php echo $row['payment_method'];?></td>
+							   <td><?php echo $row['payment_status']?></td>
+							   <td><?php echo $row['name']?></td>
+							   <td><?php echo $row['added_on']?></td>
+							  
 							</tr>
 							<?php } ?>
 						 </tbody>
 					  </table>
+
 				   </div>
 				</div>
 			 </div>

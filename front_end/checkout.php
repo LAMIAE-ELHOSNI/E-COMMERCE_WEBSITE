@@ -35,7 +35,7 @@ $total=0;
     $id_user=$_SESSION['USER_ID'];
     $added_on=date('Y-m-d h:i:s');
     $total_price=$total;
-    $order_status="hanging";
+    $order_status=1;
     $payment_status="success";
     mysqli_query($con,"INSERT INTO `order_user`( `user_id`, `city`, `adress`, `zip`, `payment_method`, `total_price`, `payment_status`, `order_status`, `added_on`) VALUES ('$id_user','$city','$adress','$zip','$methos_payment','$total_price','$payment_status','$order_status','$added_on')");
     
