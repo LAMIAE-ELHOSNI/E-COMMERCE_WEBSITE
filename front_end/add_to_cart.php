@@ -1,7 +1,12 @@
 <?php 
 class add_to_cart{
 	function addProduct($pid,$qty){
+		if(is_numeric($qty)){
 		$_SESSION['cart'][$pid]['qty']=$qty;
+
+		}else{
+		$_SESSION['cart'][$pid]['qty']=1;			
+		}
 	}
 	
 	function updateProduct($pid,$qty){

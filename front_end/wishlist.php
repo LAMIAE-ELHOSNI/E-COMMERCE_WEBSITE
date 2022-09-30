@@ -134,7 +134,7 @@ if(isset($_GET['type']) && $_GET['type']!=''){
                                             <tr>
                                                 <td class="product-remove"><a  href="?type=delete&id=<?php echo $row['id'];?>">×</a></td>
                                                 <td><img src="../media/product/<?php echo $row['image'];?>"/></td>
-                                                <td class="product-name"><a href="#"><?php echo $row['product_name']; ?></a></td>
+                                                <td class="product-name"><a href="product-details.php?name=<?php echo $row['product_name']?>"><?php echo $row['product_name']; ?></a></td>
                                                 <td class="product-price"><span class="amount"><?php echo $row['price']; ?></span></td>
                                                 <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
                                                 <!-- <td class="product-add-to-cart"><a href="javascript:void(0)" onclick="manage_cart('<//?php echo $row['id']?>>','add')"> Add to Cart</a></td> -->
@@ -208,40 +208,3 @@ if(isset($_GET['type']) && $_GET['type']!=''){
         <!-- End Banner Area -->
         <!-- Start Footer Area -->
 <?php include "footer.php";?>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<!-- i copied this code to many file try later to optimize it  -->
-<script>
-    function manage_cart(pid,type){
-	if(type=='update'){
-		var qty=jQuery("#"+pid+"qty").val();
-	}else{
-		var qty=jQuery("#qty").val();
-	}
-	jQuery.ajax({
-		url:'mange_cart.php',
-		type:'post',
-		data:'pid='+pid+'&qty='+qty+'&type='+type,
-		success:function(result){
-			if(type=='update' || type=='remove'){
-				window.location.href=window.location.href;
-			}
-			jQuery('.htc__qua').html(result);
-		}	
-	});	
-}
-
-function manage_wishlist(pid,type){
-	var qty=jQuery("#qty").val();
-	jQuery.ajax({
-		url:'manage_wishlist.php',
-		type:'post',
-		data:'pid='+pid+'&type='+type,
-		success:function(result){
-			if(type=='update'){
-				window.location.href=window.location.href;
-			}
-			jQuery('.htc__qua').html(result);
-		}	
-	});	
-}
-</script>

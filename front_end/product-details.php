@@ -1,12 +1,19 @@
 <?php
 require('header.php');
-if(isset($_GET['id'])){
-	$product_id=$_GET['id'];
-    $sql="select product.* ,category.category from product,category where product.category_id=category.id and product.id='$product_id'";
+
+if(isset($_GET['id'])||isset($_GET['name'])){
+    if(isset($_GET['id'])){
+        $product_id=$_GET['id'];
+        $sql="select product.* ,category.category from product,category where product.category_id=category.id and product.id='$product_id'";
+    }elseif(isset($_GET['name'])){
+         $product_name=$_GET['name'];
+         $sql="select product.* ,category.category from product,category where product.category_id=category.id and product.product_name='$product_name'";
+
+    }
     $res =mysqli_query($con,$sql);
     while($row=mysqli_fetch_assoc($res)){
-		$data[]=$row;
-	}
+             $data[]=$row;
+         }
 }else{
     header("location:index.php");
 }
@@ -69,7 +76,7 @@ $get_product=$data;
                                     <div >
                                        <span>Qentity</span>
                                         <select id="qty" style="width: 150px;">
-                                            <option value="1">1</option>
+                                            <options value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="5">4</option>
@@ -86,7 +93,7 @@ $get_product=$data;
                                     </div>
 									
                                 </div>
-								<a class="fr__btn" href="javascript:void(0)" onclick="manage_cart('<?php echo $get_product['0']['id']?>','add')" >Add to cart</a>
+								<a class="fr__btn" id="btn" href="javascript:void(0)" onclick="manage_cart('<?php echo $get_product['0']['id']?>','add')" >Add to cart</a>
                             </div>
                         </div>
                     </div>
@@ -125,11 +132,11 @@ $get_product=$data;
         </section>
         <!-- End Product Description -->
         
-<? include "footer.php";?>
+<? require "footer.php";?>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<!-- i copied this code to many file try later to optimize it  -->
 <script>
-    function manage_cart(pid,type){
+  function manage_cart(pid,type){
 	if(type=='update'){
 		var qty=jQuery("#"+pid+"qty").val();
 	}else{

@@ -2,7 +2,6 @@
 //test if name of category is alerdy existe
 
 if(isset($_POST['add'])){
-
    if(isset($_GET['id'])&&$_GET['id']!=''){
       $name_edit=get_safe_value($con,$_POST['category']);
       $id=$_GET['id'];
@@ -15,7 +14,6 @@ if(isset($_POST['add'])){
    }
     header("Location:category.php");
 }
-
 ?>
 <div class="content pb-0">
             <div class="animated fadeIn">
@@ -25,7 +23,8 @@ if(isset($_POST['add'])){
                         <div class="card-header"><strong>Add category</strong></div>
                         <form action="" method="post">
                         <div class="card-body card-block">
-                           <div class="form-group"><label for="category" class=" form-control-label">Category</label><input type="text" name="category" placeholder="Enter your category name" class="form-control"></div>
+                           <div class="form-group"><label for="category" class=" form-control-label">Category</label>
+                           <input type="text" name="category" placeholder="Enter your category name" class="form-control" require minlength="2" maxlength="150" ></div>
                            <button name="add" type="submit" class="btn btn-lg btn-success btn-block">
                            <span >Add</span>
                            </button>
@@ -38,4 +37,4 @@ if(isset($_POST['add'])){
             </div>
          </div>
 
-<?php include"footer.php";?>          
+<?php include "footer.php";?>          

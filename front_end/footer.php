@@ -116,6 +116,11 @@
     <!-- Placed js at the end of the document so the pages load faster -->
 
     <!-- jquery latest version -->
+
+
+</body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <!-- jquery latest version -->
     <script src="js/vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap framework js -->
     <script src="js/bootstrap.min.js"></script>
@@ -127,28 +132,6 @@
     <script src="js/waypoints.min.js"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="js/main.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script>
-    function manage_cart(pid,type){
-	if(type=='update'){
-		var qty=jQuery("#"+pid+"qty").val();
-	}else{
-		var qty=jQuery("#qty").val();
-	}
-	jQuery.ajax({
-		url:'mange_cart.php',
-		type:'post',
-		data:'pid='+pid+'&qty='+qty+'&type='+type,
-		success:function(result){
-			if(type=='update' || type=='remove'){
-				window.location.href='cart.php';
-			}
-			jQuery('.htc__qua').html(result);
-		}	
-	});	
-}
-
-</script>
-</body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </html>

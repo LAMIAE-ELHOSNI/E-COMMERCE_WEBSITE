@@ -4,13 +4,11 @@ require "add_to_cart.php";
 $category=mysqli_query($con,"select * from category where stauts=1");
 $obj=new add_to_cart();
 $totalProduct=$obj->totalProduct();
-
-
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Asbab - eCommerce HTML5 Templatee</title>
     <meta name="description" content="">
@@ -37,9 +35,6 @@ $totalProduct=$obj->totalProduct();
     <link rel="stylesheet" href="css/responsive.css">
     <!-- User style -->
     <link rel="stylesheet" href="css/custom.css">
-
-
-    <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
 </head>
 
@@ -67,7 +62,7 @@ $totalProduct=$obj->totalProduct();
                                     <ul class="main__menu">
                                         <li class="drop"><a href="index.php">Home</a></li>
                                         <li class="drop"><a href="#">Category</a>
-                                            <ul class="dropdown mega_dropdown">
+                                            <ul class="dropdown">
                                                 <?php foreach($category as $list){ ?>
                                                     <li><a href="product_by_category.php?id=<?php echo $list['id']?>"><?php echo $list['category']?></a></li>
                                                 <?php }?>   

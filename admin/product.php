@@ -1,5 +1,6 @@
 <?php
 require('header.php');
+require('validation.php');
 if(isset($_GET['type']) && $_GET['type']!=''){
 	$type=get_safe_value($con,$_GET['type']);
 
@@ -14,12 +15,18 @@ if(isset($_GET['type']) && $_GET['type']!=''){
 			$update_status_sql="update product set stauts='$status' where id='$id'";
 			mysqli_query($con,$update_status_sql);
 		}
-
-	if($type=='delete'){
-		$id=get_safe_value($con,$_GET['id']);
-		$delete_sql="delete from product where id='$id'";
-		mysqli_query($con,$delete_sql);
-	}
+}
+if(isset($_POST['product_id'])){
+	$id=$_POST['product_id'];
+	$delete_sql="delete from product where id='$id'";
+	mysqli_query($con,$delete_sql);
+}
+function cate($id_cat){  //function to display category
+	$category=$id_cat;
+	$con=mysqli_connect("localhost:3307","root","","e-commerce");
+	$res=mysqli_query($con,"select id,category from category where id='$category'");
+	$row_cat=mysqli_fetch_assoc($res);
+	return $row_cat['category'];
 }
 $sql="select product.* ,category.category from product,category where product.category_id=category.id order by product.id desc";
 $res=mysqli_query($con,$sql);
@@ -39,7 +46,6 @@ $res=mysqli_query($con,$sql);
 						 <thead>
 							<tr>
 							   <th class="serial">#</th>
-							   <th>ID</th>
 							   <th>Categories</th>
 							   <th>Name</th>
 							   <th>Image</th>
@@ -55,8 +61,11 @@ $res=mysqli_query($con,$sql);
 							while($row=mysqli_fetch_assoc($res)){?>
 							<tr>
 							   <td class="serial"><?php echo $i?></td>
-							   <td><?php echo $row['id']?></td>
-							   <td><?php echo $row['category_id']?></td>
+							   <td>
+							  	 <?php
+								  	echo cate($row['category_id']);
+								  ?>	
+							   </td>
 							   <td><?php echo $row['product_name']?></td>
 							   <td><img src="../media/product/<?php echo $row['image'];?>"/></td>
 							   <td><?php echo $row['mrp']?></td>
@@ -71,7 +80,7 @@ $res=mysqli_query($con,$sql);
 								}
 								echo "<span><a class='badge badge-edit btn-success'  href='add_edit_product.php?id=".$row['id']."'>Edit</a></span>&nbsp;";
 								
-								echo "<span ><a class='badge badge-delete btn-danger' href='?type=delete&id=".$row['id']."'>Delete</a></span>";
+								echo "<span ><button type='button' class='badge badge-delete btn-danger delete_product' value='".$row['id']."'>Delete</button></span>&nbsp;";
 								$i++;
 								?>
 							   </td>

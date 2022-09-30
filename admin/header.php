@@ -27,7 +27,10 @@ require ("function.php");
       <link rel="stylesheet" href="assets/css/flag-icon.min.css">
       <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
       <link rel="stylesheet" href="assets/css/style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+      <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    </head>
    <body>
       <aside id="left-panel" class="left-panel">
@@ -50,7 +53,9 @@ require ("function.php");
 				  <li class="menu-item-has-children dropdown">
                      <a href="contact_us.php" >Contact Us</a>
                   </li>
-                                                   
+                  <li class="menu-item-has-children dropdown">
+                     <a href="setting.php" >Setting</a>
+                  </li>                                   
                </ul>
             </div>
          </nav>

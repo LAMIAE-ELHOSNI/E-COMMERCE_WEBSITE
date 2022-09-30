@@ -276,9 +276,8 @@ $total=0;
         <!-- Start Footer Area -->
  <?php include "footer.php";?>
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<!-- i copied this code to many file try later to optimize it  -->
 <script>
-    function manage_cart(pid,type){
+  function manage_cart(pid,type){
 	if(type=='update'){
 		var qty=jQuery("#"+pid+"qty").val();
 	}else{

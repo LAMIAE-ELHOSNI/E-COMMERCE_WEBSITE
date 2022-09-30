@@ -8,6 +8,7 @@ if($check_user>0){
 	$row=mysqli_fetch_assoc($res);
 	$_SESSION['USER_LOGIN']='yes';
 	$_SESSION['USER_ID']=$row['id'];
+    global $v;
 	$_SESSION['USER_NAME']=$row['name'];
     //header
      $msg="<div class='btn btn-success'>LOGIN WITHE SUCCESS</div>";

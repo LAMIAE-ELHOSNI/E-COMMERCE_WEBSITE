@@ -1,6 +1,6 @@
  
  <?php include "header.php"; 
- //prx($_SESSION['cart']);
+//prx($_SESSION['cart']);
  ?>
  <div class="body__overlay"></div>
         <!-- Start Offset Wrapper -->
@@ -115,6 +115,7 @@
                                     <tbody>
                                         <?php 
                                             if($_SESSION['cart']){
+                                            
                                              foreach($_SESSION['cart'] as $key=>$val){
                                                  $requet="select product.* ,category.category from product,category where product.category_id=category.id and product.id=$key";
                                                  $product=mysqli_query($con,$requet);
@@ -174,9 +175,8 @@
 
 <?php include "footer.php";?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<!-- i copied this code to many file try later to optimize it  -->
 <script>
-    function manage_cart(pid,type){
+  function manage_cart(pid,type){
 	if(type=='update'){
 		var qty=jQuery("#"+pid+"qty").val();
 	}else{
@@ -195,4 +195,18 @@
 	});	
 }
 
+function manage_wishlist(pid,type){
+	var qty=jQuery("#qty").val();
+	jQuery.ajax({
+		url:'manage_wishlist.php',
+		type:'post',
+		data:'pid='+pid+'&type='+type,
+		success:function(result){
+			if(type=='update'){
+				window.location.href=window.location.href;
+			}
+			jQuery('.htc__qua').html(result);
+		}	
+	});	
+}
 </script>

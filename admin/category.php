@@ -1,4 +1,5 @@
 <?php include "header.php";
+include "validation.php";
 //include "connectDB.php";
 $sql="select * from category order by category desc";
 $res=mysqli_query($con,$sql);
@@ -15,15 +16,16 @@ if(isset($_GET['type']) && $_GET['type']!=''){
 		$update_status_sql="update category set stauts='$status' where id='$id'";
 		mysqli_query($con,$update_status_sql);
 	}
-    	if($type=='delete'){
-		$id=get_safe_value($con,$_GET['id']);
-		$delete_status_sql="delete from category  where id='$id'";
-		mysqli_query($con,$delete_status_sql);
-	}
+
+}
+if(isset($_POST['delete'])){
+   $id=get_safe_value($con,$_POST['cateygory_id']);
+   $delete_status_sql="delete from category  where id='$id'";
+   mysqli_query($con,$delete_status_sql);
 }
 $res=mysqli_query($con,$sql);
 ?>
-<div class="content pb-0">
+<div class="content pb-0" >
             <div class="orders">
                <div class="row">
                   <div class="col-xl-12">
@@ -34,8 +36,8 @@ $res=mysqli_query($con,$sql);
                            <h6 ><a class="btn btn-success" href="add_edit_category.php">Add Category</a></h6>
                         </div>
                         <div class="card-body--">
-                           <div class="table-stats order-table ov-h">
-                              <table class="table ">
+                           <div class="table-stats order-table ov-h" id="table-category">
+                              <table class="table">
                                  <thead>
                                     <tr>
                                        <th class="serial">#</th>
@@ -58,9 +60,8 @@ $res=mysqli_query($con,$sql);
                                         }else{
                                             echo "<span ><a class='badge badge-pending' href='?type=stauts&operation=active&id=".$row['id']."'>Deactive</a></span>&nbsp;";
                                         }
-                                  
-                                        echo "<span ><a class='btn btn-success' href='add_edit_category.php?id=".$row['id']."'>Edit</a></span>&nbsp;";
-                                        echo "<span ><a class='btn btn-danger' href='?type=delete&id=".$row['id']."'>Delete</a></span>";
+                                        echo "<span ><a class='badge badge-success' href='add_edit_category.php?id=".$row['id']."'>Edit</a></span>&nbsp;";
+                                        echo "<span ><a class='badge badge-delete btn-danger delete_category' style='color: white;'' value='".$row['id']."'>Delete</a></span>&nbsp";
                                     ?>
                                     <td>
                                     </tr>
@@ -75,4 +76,4 @@ $res=mysqli_query($con,$sql);
                </div>
             </div>
 		  </div>
-<?php include"footer.php";?>          
+<?php include "footer.php";?>          
